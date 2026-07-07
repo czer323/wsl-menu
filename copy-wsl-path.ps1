@@ -16,6 +16,12 @@ function ConvertTo-WslPath {
         return ''
     }
 
+    # Defensive fix: Windows command-line parser consumes \ before " as escape
+    # so "C:\" arrives as C:" — restore the backslash
+    if ($Path -match '"$') {
+        $Path = $Path -replace '"$', '\'
+    }
+
     $inputPath = $Path  # snapshot for debug log
 
     # Strip \\?\ prefix (Win32 long path namespace)

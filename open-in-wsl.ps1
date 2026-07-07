@@ -7,6 +7,9 @@
 # Version: 1.0.0
 
 if (-not $Path) { exit 1 }
+if ($Path -match '"$') {
+    $Path = $Path -replace '"$', '\'
+}
 
 # Dot-source the shared conversion function
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path

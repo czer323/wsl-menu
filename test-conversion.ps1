@@ -76,10 +76,16 @@ Test-Conversion -InputPath "C:\\Users\\testuser\\file.ts" -Expected "/mnt/c/User
 Write-Host "`n=== Drive root edge cases ===" -ForegroundColor Cyan
 
 Test-Conversion -InputPath "C:" -Expected "/mnt/c/" -Label "drive letter only (C:)"
-Test-Conversion -InputPath 'C:"' -Expected 'C:"' -Label "drive letter trailing quote (falls back)"
+Test-Conversion -InputPath 'C:"' -Expected '/mnt/c/' -Label 'trailing quote repaired to backslash'
 Test-Conversion -InputPath "D:" -Expected "/mnt/d/" -Label "drive letter only (D:)"
 Test-Conversion -InputPath "Z:" -Expected "/mnt/z/" -Label "drive letter only (Z:)"
 
+
+Write-Host "`n=== Backslash-quote repair (Windows cmd escaping) ===" -ForegroundColor Cyan
+
+Test-Conversion -InputPath "C:\" -Expected "/mnt/c/" -Label "C:\ drive root (direct)"
+Test-Conversion -InputPath "D:\" -Expected "/mnt/d/" -Label "D:\ drive root (direct)"
+Test-Conversion -InputPath "C:\Users" -Expected "/mnt/c/Users" -Label "path with trailing backslash normal"
 Write-Host "`n=== Debug log format ===" -ForegroundColor Cyan
 
 # Backup existing debug state
@@ -93,7 +99,7 @@ ConvertTo-WslPath -Path "C:\Users\testuser\test.ts" | Out-Null
 
 if (Test-Path $logFile) {
     $logLine = Get-Content $logFile -Tail 1
-    if ($logLine -match '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} \| .+ → .+$') {
+    if ($logLine -match ('^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} \| .+ ' + [char]0x2192 + ' .+$')) {
         $script:pass++
         Write-Host "  PASS  debug log format"
     } else {
@@ -131,12 +137,12 @@ if ($result -eq "/mnt/c/") {
 }
 
 $result = ConvertTo-WslPath -Path 'C:"'
-if ($result -eq 'C:"') {
+if ($result -eq '/mnt/c/') {
     $script:pass++
-    Write-Host "  PASS  direct C:"" (trailing quote preserved)"
+    Write-Host '  PASS  trailing quote repaired to backslash'
 } else {
     $script:fail++
-    Write-Host "  FAIL  direct C:"" (trailing quote preserved)"
+    Write-Host '  FAIL  trailing quote repaired to backslash'
     Write-Host "       Got: '$result'" -ForegroundColor DarkGray
 }
 
