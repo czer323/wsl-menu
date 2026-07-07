@@ -1,22 +1,16 @@
 @echo off
 :: Uninstall "Open in WSL" and "Copy WSL Path" context menu items
 :: Double-click to run from any folder. Removes scripts and registry entries.
-
-:: Check for admin rights, re-launch elevated if needed
-net session >nul 2>&1
-if %errorlevel% neq 0 (
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
-    exit /b
-)
+:: Installed for current user only — no admin required.
 
 :: Remove registry entries
-reg delete "HKCR\*\shell\OpenInWSL" /f >nul 2>&1
-reg delete "HKCR\Directory\shell\OpenInWSL" /f >nul 2>&1
-reg delete "HKCR\Directory\Background\shell\OpenInWSL" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\*\shell\OpenInWSL" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Directory\shell\OpenInWSL" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL" /f >nul 2>&1
 
-reg delete "HKCR\*\shell\CopyWSLPath" /f >nul 2>&1
-reg delete "HKCR\Directory\shell\CopyWSLPath" /f >nul 2>&1
-reg delete "HKCR\Directory\Background\shell\CopyWSLPath" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\*\shell\CopyWSLPath" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /f >nul 2>&1
 
 :: Remove installed scripts
 set "DST=%LocalAppData%\WSLTools\"
