@@ -1,5 +1,9 @@
 # WSL Tools — Windows Explorer Context Menu
 
+[![Version](https://img.shields.io/github/v/tag/czer323/wsl-menu?label=version)](https://github.com/czer323/wsl-menu/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![CI](https://github.com/czer323/wsl-menu/actions/workflows/ci.yml/badge.svg)](https://github.com/czer323/wsl-menu/actions/workflows/ci.yml)
+
 Adds two items to the right-click menu in Windows Explorer:
 
 - **Copy WSL Path** — copies the WSL path to clipboard (e.g. `/mnt/c/Users/foo/project` or `/home/foo/file`)
@@ -49,8 +53,8 @@ Set `WSLPATH_DEBUG` user environment variable to any value to log every path con
 Example log entries:
 
 ```
-2026-07-07 14:22:01 | C:\Users\czer3\file.ts → /mnt/c/Users/czer3/file.ts
-2026-07-07 14:22:05 | \\wsl.localhost\Ubuntu-26.04\home\czer3\.bashrc → /home/czer3/.bashrc
+2026-07-07 14:22:01 | C:\Users\foo\file.ts → /mnt/c/Users/foo/file.ts
+2026-07-07 14:22:05 | \\wsl.localhost\Ubuntu\home\foo\.bashrc → /home/foo/.bashrc
 2026-07-07 14:22:09 | C:\ → /mnt/c/
 2026-07-07 14:22:12 | \\server\share\file → \\server\share\file
 ```
@@ -63,4 +67,4 @@ Example log entries:
 [Environment]::SetEnvironmentVariable('WSLPATH_DEBUG', $null, 'User')
 ```
 
-Restart Explorer (or log out/in) after changing. The log file grows unbounded — clear it manually.
+Restart Explorer (or log out/in) after changing. The log auto-resets when it exceeds 1 MB.

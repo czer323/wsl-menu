@@ -2,7 +2,7 @@
 .SYNOPSIS
 Test suite for ConvertTo-WslPath
 
-Run: pwsh test-conversion.ps1
+Run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File test-conversion.ps1
 #>
 
 # Import conversion function
