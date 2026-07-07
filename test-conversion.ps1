@@ -10,10 +10,6 @@ Run: pwsh test-conversion.ps1
 
 $pass = 0
 $fail = 0
-<<<<<<< HEAD
-$results = @()
-=======
->>>>>>> b5f2fa5 (feat: rewrite path conversion with UNC, long-path, and edge-case support)
 
 function Test-Conversion {
     param([string]$InputPath, [string]$Expected, [string]$Label)
@@ -71,6 +67,10 @@ Test-Conversion -InputPath "\\server\share\file" -Expected "\\server\share\file"
 Test-Conversion -InputPath "/home/czer3/file.ts" -Expected "/home/czer3/file.ts" -Label "already Linux path"
 Test-Conversion -InputPath "/mnt/c/Users/czer3/file.ts" -Expected "/mnt/c/Users/czer3/file.ts" -Label "already /mnt/c/ path"
 Test-Conversion -InputPath "C:\\Users\\czer3\\file.ts" -Expected "/mnt/c/Users/czer3/file.ts" -Label "escaped double backslashes"
+
+Write-Host "`n=== Drive root edge cases ===" -ForegroundColor Cyan
+
+Test-Conversion -InputPath "C:" -Expected "/mnt/c/" -Label "drive letter only (C:)"
 
 Write-Host "`n========================================" -ForegroundColor Cyan
 Write-Host "Results: $pass passed, $fail failed" -ForegroundColor $(if ($fail -eq 0) { "Green" } else { "Red" })

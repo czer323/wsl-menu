@@ -41,3 +41,17 @@ This will remove both registry entries and installed scripts.
 - WSL installed with a default distro (Open in WSL only)
 
 **Copy WSL Path** does not need WSL or Windows Terminal — it uses pure PowerShell string conversion.
+
+## Debug
+
+Set `WSLPATH_DEBUG` user environment variable to any value to log every path conversion to `%LocalAppData%\WSLTools\debug.log`.
+
+```powershell
+# Enable
+[Environment]::SetEnvironmentVariable('WSLPATH_DEBUG', '1', 'User')
+
+# Disable
+[Environment]::SetEnvironmentVariable('WSLPATH_DEBUG', $null, 'User')
+```
+
+Restart Explorer (or log out/in) after changing. The log file grows unbounded — clear it manually.
