@@ -5,18 +5,19 @@ Adds two items to the right-click menu in Windows Explorer:
 - **Copy WSL Path** — copies the WSL path to clipboard (e.g. `/mnt/c/Users/foo/project` or `/home/foo/file`)
 - **Open in WSL** — opens Windows Terminal with WSL `cd`'d to that path
 
-Works on files, folders, and folder backgrounds (empty space).
+Works on files, folders, drives, and folder backgrounds (empty space).
 
 ## Install
 
-1. Double-click **`install.bat`** (from any folder)
-2. Click "Yes" on the admin prompt
+1. Double-click **`install.bat`**
 
-That's it. Scripts are copied to `%LocalAppData%\WSLTools\` automatically. You can delete this folder after installing.
+That's it. Scripts are copied to `%LocalAppData%\WSLTools\` automatically. And added to registry as current user.  You can delete this folder after installing.
 
 ## Uninstall
 
-Double-click **`uninstall.bat`** (from any folder) — removes both registry entries and installed scripts.
+1. Double-click **`uninstall.bat`**
+
+This will remove both registry entries and installed scripts.
 
 ## Path Conversions
 

@@ -7,10 +7,12 @@
 reg delete "HKCU\Software\Classes\*\shell\OpenInWSL" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Directory\shell\OpenInWSL" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Drive\shell\OpenInWSL" /f >nul 2>&1
 
 reg delete "HKCU\Software\Classes\*\shell\CopyWSLPath" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Drive\shell\CopyWSLPath" /f >nul 2>&1
 
 :: Remove installed scripts
 set "DST=%LocalAppData%\WSLTools\"
