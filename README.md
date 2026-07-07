@@ -38,7 +38,7 @@ This will remove both registry entries and installed scripts.
 
 - Windows 11
 - Windows Terminal (`wt.exe`) — pre-installed on Windows 11 (Open in WSL only)
-- WSL installed with a default distro (Open in WSL only)
+- WSL2 installed with a default distro (Open in WSL only)
 
 **Copy WSL Path** does not need WSL or Windows Terminal — it uses pure PowerShell string conversion.
 

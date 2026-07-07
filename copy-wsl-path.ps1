@@ -1,3 +1,6 @@
+﻿# ConvertTo-WslPath — shared path conversion for WSL context menu tools
+# Version: 1.0.0
+
 function ConvertTo-WslPath {
     param(
         [string]$Path
@@ -18,6 +21,10 @@ function ConvertTo-WslPath {
     # Strip \\?\ prefix (Win32 long path namespace)
     if ($Path -match '^\\\\\?\\') {
         $Path = $Path.Substring(4)
+        # \\?\UNC\server\share → \\server\share
+        if ($Path -match '^UNC\\') {
+            $Path = '\\' + $Path.Substring(4)
+        }
     }
 
     # Strip \\.\ prefix (device namespace)
@@ -80,6 +87,12 @@ function Write-DebugLog {
     }
 
     $logFile = "$logDir\debug.log"
+    # Cap log at 1 MB — start fresh if exceeded
+    if (Test-Path $logFile) {
+        if ((Get-Item $logFile).Length -gt 1MB) {
+            Remove-Item $logFile -Force
+        }
+    }
     $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
     "$timestamp | $InputPath → $Result" | Out-File -FilePath $logFile -Append -Encoding UTF8
 }

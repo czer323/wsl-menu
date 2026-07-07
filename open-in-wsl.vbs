@@ -1,5 +1,8 @@
 ' Silent launcher — runs open-in-wsl.ps1 with zero visible windows
 ' The 0 in .Run means vbHide (completely invisible)
+' Version: 1.0.0
+
+If WScript.Arguments.Count = 0 Then WScript.Quit 1
 
 Set shell = CreateObject("WScript.Shell")
 scriptDir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)

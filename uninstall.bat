@@ -14,9 +14,16 @@ reg delete "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\Drive\shell\CopyWSLPath" /f >nul 2>&1
 
-:: Remove installed scripts
+::: Remove installed scripts
 set "DST=%LocalAppData%\WSLTools\"
-if exist "%DST%" rmdir /s /q "%DST%"
+if exist "%DST%" (
+    del /q "%DST%open-in-wsl.ps1" 2>nul
+    del /q "%DST%open-in-wsl.vbs" 2>nul
+    del /q "%DST%copy-wsl-path.ps1" 2>nul
+    del /q "%DST%copy-wsl-path.vbs" 2>nul
+    del /q "%DST%debug.log" 2>nul
+    dir /b "%DST%\*" 2>nul | findstr "." >nul || rmdir "%DST%" 2>nul
+)
 
 echo.
 echo   Uninstalled successfully!
