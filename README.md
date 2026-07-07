@@ -46,6 +46,15 @@ This will remove both registry entries and installed scripts.
 
 Set `WSLPATH_DEBUG` user environment variable to any value to log every path conversion to `%LocalAppData%\WSLTools\debug.log`.
 
+Example log entries:
+
+```
+2026-07-07 14:22:01 | C:\Users\czer3\file.ts → /mnt/c/Users/czer3/file.ts
+2026-07-07 14:22:05 | \\wsl.localhost\Ubuntu-26.04\home\czer3\.bashrc → /home/czer3/.bashrc
+2026-07-07 14:22:09 | C:\ → /mnt/c/
+2026-07-07 14:22:12 | \\server\share\file → \\server\share\file
+```
+
 ```powershell
 # Enable
 [Environment]::SetEnvironmentVariable('WSLPATH_DEBUG', '1', 'User')
