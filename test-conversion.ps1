@@ -10,7 +10,10 @@ Run: pwsh test-conversion.ps1
 
 $pass = 0
 $fail = 0
+<<<<<<< HEAD
 $results = @()
+=======
+>>>>>>> b5f2fa5 (feat: rewrite path conversion with UNC, long-path, and edge-case support)
 
 function Test-Conversion {
     param([string]$InputPath, [string]$Expected, [string]$Label)
