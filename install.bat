@@ -17,26 +17,32 @@ copy /y "%SRC%copy-wsl-path.vbs" "%DST%" >nul
 :: === Open in WSL ===
 
 reg add "HKCU\Software\Classes\*\shell\OpenInWSL" /ve /d "Open in WSL" /f >nul
+reg add "HKCU\Software\Classes\*\shell\OpenInWSL" /v "Position" /d "Bottom" /f >nul
 reg add "HKCU\Software\Classes\*\shell\OpenInWSL" /v "Icon" /d "%%SystemRoot%%\System32\wsl.exe" /f >nul
 reg add "HKCU\Software\Classes\*\shell\OpenInWSL\command" /ve /d "wscript.exe \"%DST%open-in-wsl.vbs\" \"%%1\"" /f >nul
 
 reg add "HKCU\Software\Classes\Directory\shell\OpenInWSL" /ve /d "Open in WSL" /f >nul
+reg add "HKCU\Software\Classes\Directory\shell\OpenInWSL" /v "Position" /d "Bottom" /f >nul
 reg add "HKCU\Software\Classes\Directory\shell\OpenInWSL" /v "Icon" /d "%%SystemRoot%%\System32\wsl.exe" /f >nul
 reg add "HKCU\Software\Classes\Directory\shell\OpenInWSL\command" /ve /d "wscript.exe \"%DST%open-in-wsl.vbs\" \"%%1\"" /f >nul
 
 reg add "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL" /ve /d "Open in WSL" /f >nul
+reg add "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL" /v "Position" /d "Bottom" /f >nul
 reg add "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL" /v "Icon" /d "%%SystemRoot%%\System32\wsl.exe" /f >nul
 reg add "HKCU\Software\Classes\Directory\Background\shell\OpenInWSL\command" /ve /d "wscript.exe \"%DST%open-in-wsl.vbs\" \"%%V\"" /f >nul
 
 :: === Copy WSL Path ===
 
 reg add "HKCU\Software\Classes\*\shell\CopyWSLPath" /ve /d "Copy WSL Path" /f >nul
+reg add "HKCU\Software\Classes\*\shell\CopyWSLPath" /v "Position" /d "Bottom" /f >nul
 reg add "HKCU\Software\Classes\*\shell\CopyWSLPath" /v "Icon" /d "imageres.dll,-5356" /f >nul
 reg add "HKCU\Software\Classes\*\shell\CopyWSLPath\command" /ve /d "wscript.exe \"%DST%copy-wsl-path.vbs\" \"%%1\"" /f >nul
 
+reg add "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /v "Position" /d "Bottom" /f >nul
 reg add "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /ve /d "Copy WSL Path" /f >nul
 reg add "HKCU\Software\Classes\Directory\shell\CopyWSLPath" /v "Icon" /d "imageres.dll,-5356" /f >nul
 reg add "HKCU\Software\Classes\Directory\shell\CopyWSLPath\command" /ve /d "wscript.exe \"%DST%copy-wsl-path.vbs\" \"%%1\"" /f >nul
+reg add "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /v "Position" /d "Bottom" /f >nul
 
 reg add "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /ve /d "Copy WSL Path" /f >nul
 reg add "HKCU\Software\Classes\Directory\Background\shell\CopyWSLPath" /v "Icon" /d "imageres.dll,-5356" /f >nul
