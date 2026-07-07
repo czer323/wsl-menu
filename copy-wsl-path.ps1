@@ -32,13 +32,13 @@ function ConvertTo-WslPath {
     if ($fixed -match '^//wsl\.localhost/([^/]+)(?:/(.*))?$') {
         $rest = if ($matches[2]) { $matches[2] } else { '' }
         $result = "/$rest"
-        Write-DebugLog -Input $inputPath -Result $result
+        Write-DebugLog -InputPath $inputPath -Result $result
         return $result
     }
 
     # Rule 2: Non-WSL network share \\... (didn't match wsl.localhost) → pass through unchanged
     if ($Path -match '^\\\\') {
-        Write-DebugLog -Input $inputPath -Result $Path
+        Write-DebugLog -InputPath $inputPath -Result $Path
         return $Path
     }
 
@@ -51,23 +51,23 @@ function ConvertTo-WslPath {
         $drive = $matches[1].ToLower()
         $rest = if ($matches[2]) { $matches[2] } else { '' }
         $result = "/mnt/$drive/$rest"
-        Write-DebugLog -Input $inputPath -Result $result
+        Write-DebugLog -InputPath $inputPath -Result $result
         return $result
     }
 
     # Rule 4: Already a Linux path → pass through
     if ($fixed -match '^/') {
-        Write-DebugLog -Input $inputPath -Result $fixed
+        Write-DebugLog -InputPath $inputPath -Result $fixed
         return $fixed
     }
 
     # Fallback: return original path unchanged
-    Write-DebugLog -Input $inputPath -Result $Path
+    Write-DebugLog -InputPath $inputPath -Result $Path
     return $Path
 }
 
 function Write-DebugLog {
-    param([string]$Input, [string]$Result)
+    param([string]$InputPath, [string]$Result)
 
     $debug = [Environment]::GetEnvironmentVariable('WSLPATH_DEBUG', 'User')
     if (-not $debug) {
@@ -81,7 +81,7 @@ function Write-DebugLog {
 
     $logFile = "$logDir\debug.log"
     $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    "$timestamp | $Input → $Result" | Out-File -FilePath $logFile -Append -Encoding UTF8
+    "$timestamp | $InputPath → $Result" | Out-File -FilePath $logFile -Append -Encoding UTF8
 }
 
 # When run directly (not dot-sourced), copy result to clipboard
